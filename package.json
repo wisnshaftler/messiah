@@ -1,0 +1,17 @@
+{
+  "name": "messiah",
+  "version": "1.0.0",
+  "description": "A simple portfolio template for me bcause i need one",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wisnshaftler",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "tailwind": "^4.0.0"
+  }
+}
