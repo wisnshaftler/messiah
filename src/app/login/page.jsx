@@ -25,7 +25,7 @@ export default function Page() {
             }
             if (data.token) {
                 setCookie("token", data.token, 1);
-                location.href = "/dashboard";
+                location.href = "/newpost.html";
             }
         });
     }

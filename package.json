@@ -13,6 +13,7 @@
     "@ckeditor/ckeditor5-react": "^6.1.0",
     "@editorjs/editorjs": "^2.28.0",
     "jsonwebtoken": "^9.0.2",
+    "mime-types": "^2.1.35",
     "next": "latest",
     "quill": "^1.3.7",
     "react": "latest",
