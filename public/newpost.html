@@ -20,16 +20,70 @@
             color: white;
         }
     </style>
+
+    <script>
+        async function uploadFile() {
+
+            const formData = new FormData();
+            formData.append("file", document.getElementById("uploadFile").files[0]);
+            formData.append("extension", document.getElementById("file_extension").value);
+
+            console.log(formData);
+
+            fetch("/api/upload-image", {
+                method: "POST",
+                body: formData,
+            }).then(response => response.json()).then(response => {
+                if(response.status) {
+                    document.getElementById("urls").insertAdjacentHTML("beforeend",'<p class="text-info text-break">'+response.filename+"</p>")
+                }
+            });
+        }
+
+        async function savePost() {
+            const newPostData = $('#summernote').summernote('code');
+            const title = document.getElementById("newPostTitle").value.trim();
+            
+            if(title == "") {
+                return alert('Where is the damn title?');
+            }
+
+            const fetchResponse = await fetch("/api/new-post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, newPostData })
+            });
+
+            const resposne = await fetchResponse.json();
+            console.log(resposne);
+        }
+    </script>
 </head>
 
 <body class="m-5 mt-5 bg-dark" data-bs-theme="dark">
 
     <div class="row">
-        <div class="col-2"></div>
+        <div class="col-2">
+            <form id="uploadFileForm" method="POST" enctype="multipart/form-data">
+                <label for="uploadFile" class="text-info">Choose file</label>
+                <input type="file" id="uploadFile" name="file" placeholder="Upload" required class="form-control" />
+                <br>                <label for="file_extension" class="text-info">File Extension</label>
+                <input type="text" id="file_extension" name="extension" placeholder="File Extension"
+                    class="form-control" />
+                <br>
+            </form>
+            <button type="button" class="btn btn-secondary w-100" onclick="uploadFile();">Upload</button>
+            <hr class="bg-white w-full">
+            <div id="urls"></div>
+        </div>
         <div class="col-8">
-            <div id="summernote">
-                <p>Hello Summernote</p>
-            </div>
+            <label for="newPostTitle" class="text-info fs-3">Title goes here</label>
+            <input type="text" class="form-control" name="title" id="newPostTitle" placeholder="Type post Title"> 
+            <br />
+            <div id="summernote"></div>
+            <button type="button" class="btn btn-secondary w-100" onclick="savePost()" >Save</button>
         </div>
         <div class="col-2"></div>
     </div>
@@ -47,7 +101,9 @@
                     ['insert', ['link', 'picture', 'video']],
                     ['table', ['table']],
                 ],
-                
+                focus: true,
+                placeholder: "Metana type krnna",
+                height: 500,
             });
 
             var styleEle = $("style#fixed");

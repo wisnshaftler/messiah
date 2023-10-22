@@ -3,6 +3,7 @@ import crypto from "crypto";
 import config from "../../../../config.mjs";
 
 export async function POST(req, res) {
+
     const jsonRequest =  await req.json();
 
     if(jsonRequest.username != config.ADMIN_USERNAME || jsonRequest.password != config.ADMIN_PASSWORD) {
